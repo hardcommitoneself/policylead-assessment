@@ -74,6 +74,9 @@ class PolicyLeadArticleSpider extends BasicSpider
             foreach ($articles as $article) {
                 $articleCrawler = new Crawler($article);
 
+                // uuid
+                $uuid = $articleCrawler->filter('article')->eq(0)->attr('data-sara-article-id');
+
                 // title
                 $title = $articleCrawler->filter('h2 a span:nth-of-type(2)')->text();
 
@@ -81,7 +84,7 @@ class PolicyLeadArticleSpider extends BasicSpider
                 $link = $articleCrawler->filter('h2 a')->link()->getUri();
 
                 // date
-                $date = $articleCrawler->filter('footer span:nth-of-type(1)')->text();
+                $date = $articleCrawler->filter('span[data-auxiliary]')->text();
 
                 // excerpt
                 $excerpt = $articleCrawler->filter('section')->text();
@@ -90,6 +93,7 @@ class PolicyLeadArticleSpider extends BasicSpider
                 $image = $articleCrawler->filter('picture img')->eq(0)->attr('data-src');
 
                 $result[] = [
+                    'uuid' => $uuid,
                     'title' => $title,
                     'link' => $link,
                     'date' => $date,

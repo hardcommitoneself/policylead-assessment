@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\ArticleController;
 
 
 /*
@@ -15,9 +15,4 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Home', [
-        'laravel' => \Illuminate\Foundation\Application::VERSION,
-        'php' => PHP_VERSION,
-    ]);
-});
+Route::get('/', ArticleController::class);
